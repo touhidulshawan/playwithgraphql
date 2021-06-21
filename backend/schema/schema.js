@@ -109,7 +109,7 @@ const Mutation = new GraphQLObjectType({
           age: args.age,
         });
 
-        author.save();
+        return author.save();
       },
     },
   },
