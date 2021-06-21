@@ -6,8 +6,9 @@ import {
   GraphQLInt,
   GraphQLList,
 } from "graphql";
-
 import _ from "lodash";
+import BookModel from "../models/book.js";
+import AuthorModel from "../models/author.js";
 
 // dummy data
 let books = [
@@ -35,7 +36,7 @@ const BookType = new GraphQLObjectType({
     author: {
       type: AuthorType,
       resolve(parent, args) {
-        return _.find(authors, { id: parent.authorID });
+        // return _.find(authors, { id: parent.authorID });
       },
     },
   }),
@@ -51,7 +52,7 @@ const AuthorType = new GraphQLObjectType({
     books: {
       type: new GraphQLList(BookType),
       resolve(parent, args) {
-        return _.filter(books, { authorID: parent.id });
+        // return _.filter(books, { authorID: parent.id });
       },
     },
   }),
@@ -66,7 +67,7 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // code to get data from db/other source
-        return _.find(books, { id: args.id });
+        // return _.find(books, { id: args.id });
       },
     },
     author: {
@@ -74,24 +75,46 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // code to get dasta from db/other source
-        return _.find(authors, { id: args.id });
+        // return _.find(authors, { id: args.id });
       },
     },
     books: {
       type: new GraphQLList(BookType),
       resolve(parent, args) {
-        return books;
+        // return books;
       },
     },
     authors: {
       type: new GraphQLList(AuthorType),
       resolve(parent, args) {
-        return authors;
+        // return authors;
       },
     },
   },
 });
 
-const schema = new GraphQLSchema({ query: RootQuery });
+// mutaion or change
+const Mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    addAuthor: {
+      type: AuthorType,
+      args: {
+        name: { type: GraphQLString },
+        age: { type: GraphQLInt },
+      },
+      resolve(parent, args) {
+        const author = new AuthorModel({
+          name: args.name,
+          age: args.age,
+        });
+
+        author.save();
+      },
+    },
+  },
+});
+
+const schema = new GraphQLSchema({ query: RootQuery, mutation: Mutation });
 
 export default schema;
