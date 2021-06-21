@@ -10,22 +10,6 @@ import _ from "lodash";
 import BookModel from "../models/book.js";
 import AuthorModel from "../models/author.js";
 
-// dummy data
-let books = [
-  { id: "1", name: "Name of the Wind", genre: "Fantasy", authorID: "1" },
-  { id: "2", name: "The Final Empire", genre: "Fantasy", authorID: "2" },
-  { id: "3", name: "The Long Earth", genre: "Sci-Fi", authorID: "3" },
-  { id: "4", name: "The Hero of Ages", genre: "Fantasy", authorID: "2" },
-  { id: "5", name: "The Color of Magic", genre: "Fantasy", authorID: "3" },
-  { id: "6", name: "The Light Fantastic", genre: "Fantasy", authorID: "3" },
-];
-
-let authors = [
-  { id: "1", name: "Patrick Rothfuss", age: 46 },
-  { id: "2", name: "Brandon Sanderson", age: 44 },
-  { id: "3", name: "Terry Pratchett", age: 68 },
-];
-
 // data type of book
 const BookType = new GraphQLObjectType({
   name: "Book",
