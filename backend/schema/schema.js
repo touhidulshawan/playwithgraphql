@@ -4,6 +4,7 @@ import {
   GraphQLSchema,
   GraphQLID,
   GraphQLInt,
+  GraphQLList,
 } from "graphql";
 
 import _ from "lodash";
@@ -13,6 +14,9 @@ let books = [
   { id: "1", name: "Name of the Wind", genre: "Fantasy", authorID: "1" },
   { id: "2", name: "The Final Empire", genre: "Fantasy", authorID: "2" },
   { id: "3", name: "The Long Earth", genre: "Sci-Fi", authorID: "3" },
+  { id: "4", name: "The Hero of Ages", genre: "Fantasy", authorID: "2" },
+  { id: "5", name: "The Color of Magic", genre: "Fantasy", authorID: "3" },
+  { id: "6", name: "The Light Fantastic", genre: "Fantasy", authorID: "3" },
 ];
 
 let authors = [
@@ -44,6 +48,12 @@ const AuthorType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     age: { type: GraphQLInt },
+    books: {
+      type: new GraphQLList(BookType),
+      resolve(parent, args) {
+        return _.filter(books, { authorID: parent.id });
+      },
+    },
   }),
 });
 
