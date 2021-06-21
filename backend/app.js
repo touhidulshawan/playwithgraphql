@@ -1,4 +1,5 @@
 import express from "express";
+import { connection } from "./db/connect.js";
 import config from "./config/config.js";
 import log from "./logger/logger.js";
 import { graphqlHTTP } from "express-graphql";
@@ -18,4 +19,7 @@ app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
 
 app.listen(port, () => {
   log.info(`${NAMESPACE} is running on ${hostname}:${port}`);
+  connection()
+    .then(() => log.info("Database connected successfully"))
+    .catch((err) => log.error(err.message));
 });
