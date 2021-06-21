@@ -1,8 +1,8 @@
 import express from "express";
-import config from "./config/config";
-import log from "./logger/logger";
+import config from "./config/config.js";
+import log from "./logger/logger.js";
 import { graphqlHTTP } from "express-graphql";
-import schema from "./schema/schema";
+import schema from "./schema/schema.js";
 
 const NAMESPACE = "SERVER";
 
@@ -14,8 +14,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/graphql", graphqlHTTP({ schema }));
+app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
 
 app.listen(port, () => {
-  log.info(NAMESPACE, `Server is running on ${hostname}:${port}`);
+  log.info(`${NAMESPACE} is running on ${hostname}:${port}`);
 });

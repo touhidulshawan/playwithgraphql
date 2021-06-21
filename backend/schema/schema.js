@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLString, GraphQLSchema } from "graphql";
-import { find } from "lodash";
+import _ from "lodash";
 
 // dummy data
 let books = [
@@ -26,7 +26,7 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLString } },
       resolve(parent, args) {
         // code to get data from db/other source
-        return find(books, { id: args.id });
+        return _.find(books, { id: args.id });
       },
     },
   },
