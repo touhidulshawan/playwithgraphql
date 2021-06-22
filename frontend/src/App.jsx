@@ -1,5 +1,6 @@
 import Books from "./components/Books";
 import AddBook from "./components/AddBook";
+import AddAuthor from "./components/AddAuthor";
 
 const App = () => {
   return (
@@ -18,7 +19,9 @@ const App = () => {
           <section className="">
             <AddBook />
           </section>
-          <section>Add author</section>
+          <section>
+            <AddAuthor />
+          </section>
         </div>
       </main>
     </div>
