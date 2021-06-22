@@ -11,11 +11,7 @@ const Books = () => {
     <div>
       <ul>
         {data.books.map((book) => (
-          <li key={book.id}>
-            <p>{book.name}</p>
-            <small>{book.genre}</small>
-            <blockquote>{book.author.name}</blockquote>
-          </li>
+          <li key={book.id}>{book.name}</li>
         ))}
       </ul>
     </div>

@@ -1,23 +1,26 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_AUTHORS, ADD_BOOK } from "../queries/GetQueries";
+import { GET_AUTHORS, ADD_BOOK, GET_BOOKS } from "../queries/GetQueries";
 
 const AddBook = () => {
   const [bookName, setBookName] = useState("");
   const [genre, setGenre] = useState("");
   const [authorID, setAuthorID] = useState("");
-  const { loading, data } = useQuery(GET_AUTHORS);
+  const { loading, error, data } = useQuery(GET_AUTHORS);
   const [addBook] = useMutation(ADD_BOOK);
+
+  if (error) return <pre>{error.message}</pre>;
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    try {
-      addBook({
-        variables: { name: bookName, genre: genre, authorID: authorID },
-      });
-    } catch (err) {
-      console.log(err.message);
-    }
+    addBook({
+      variables: { name: bookName, genre: genre, authorID: authorID },
+      refetchQueries: [{ query: GET_BOOKS }],
+    });
+
+    setBookName("");
+    setGenre("");
+    setAuthorID("");
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -27,6 +30,7 @@ const AddBook = () => {
           type="text"
           name="bookName"
           id="bookName"
+          value={bookName}
           required
           onChange={(evt) => setBookName(evt.target.value)}
         />
@@ -37,6 +41,7 @@ const AddBook = () => {
           type="text"
           name="genreName"
           id="genreName"
+          value={genre}
           required
           onChange={(evt) => setGenre(evt.target.value)}
         />
@@ -49,7 +54,7 @@ const AddBook = () => {
           required
           onChange={(evt) => setAuthorID(evt.target.value)}
         >
-          <option value="">Select Author</option>
+          <option value={authorID}>Select Author</option>
           {loading ? (
             <option>Loading Authors Data</option>
           ) : (
