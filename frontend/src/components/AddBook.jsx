@@ -13,10 +13,14 @@ const AddBook = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    addBook({
-      variables: { name: bookName, genre: genre, authorID: authorID },
-      refetchQueries: [{ query: GET_BOOKS }],
-    });
+    try {
+      addBook({
+        variables: { name: bookName, genre: genre, authorID: authorID },
+        refetchQueries: [{ query: GET_BOOKS }],
+      });
+    } catch (err) {
+      alert("Please fill all data correctly", err.message);
+    }
 
     setBookName("");
     setGenre("");
@@ -24,9 +28,12 @@ const AddBook = () => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="bookName">Book Name</label>
+      <div className="flex justify-between items-center">
+        <label className="text-gray-700 text-sm p-2" htmlFor="bookName">
+          Book Name
+        </label>
         <input
+          className="bg-blue-100 px-2 text-blue-600"
           type="text"
           name="bookName"
           id="bookName"
@@ -35,9 +42,12 @@ const AddBook = () => {
           onChange={(evt) => setBookName(evt.target.value)}
         />
       </div>
-      <div>
-        <label htmlFor="genreName">Genre</label>
+      <div className="flex justify-between items-center">
+        <label className="text-gray-700 text-sm  p-2" htmlFor="genreName">
+          Genre
+        </label>
         <input
+          className="bg-blue-100 px-2 text-blue-600"
           type="text"
           name="genreName"
           id="genreName"
@@ -46,15 +56,21 @@ const AddBook = () => {
           onChange={(evt) => setGenre(evt.target.value)}
         />
       </div>
-      <div>
-        <label htmlFor="author">Author</label>
+      <div className="flex justify-between items-center">
+        <label className="text-gray-700 text-sm p-2" htmlFor="author">
+          Author
+        </label>
         <select
+          className="bg-gray-100 text-gray-800 border-2 border-gray-600 rounded"
           name="author"
           id="author"
+          value={authorID}
           required
           onChange={(evt) => setAuthorID(evt.target.value)}
         >
-          <option value={authorID}>Select Author</option>
+          <option value="" className="bg-red-300 text-red-800 tracking-wider">
+            Select Author
+          </option>
           {loading ? (
             <option>Loading Authors Data</option>
           ) : (
@@ -66,7 +82,12 @@ const AddBook = () => {
           )}
         </select>
       </div>
-      <button type="submit">+</button>
+      <button
+        type="submit"
+        className="bg-green-600 w-10 h-10 text-2xl text-green-100 rounded-full border-b border-l-4 border-green-700 shadow-lg"
+      >
+        +
+      </button>
     </form>
   );
 };
