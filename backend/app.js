@@ -1,5 +1,6 @@
 import express from "express";
 import { connection } from "./db/connect.js";
+import cors from "cors";
 import config from "./config/config.js";
 import log from "./logger/logger.js";
 import { graphqlHTTP } from "express-graphql";
@@ -12,6 +13,7 @@ const port = config.server.port;
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
