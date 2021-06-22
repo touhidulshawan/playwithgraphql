@@ -33,7 +33,7 @@ const AddBook = () => {
           Book Name
         </label>
         <input
-          className="bg-blue-100 px-2 text-blue-600"
+          className="bg-blue-100 px-2 text-blue-900"
           type="text"
           name="bookName"
           id="bookName"
@@ -47,7 +47,7 @@ const AddBook = () => {
           Genre
         </label>
         <input
-          className="bg-blue-100 px-2 text-blue-600"
+          className="bg-blue-100 px-2 text-blue-900"
           type="text"
           name="genreName"
           id="genreName"
