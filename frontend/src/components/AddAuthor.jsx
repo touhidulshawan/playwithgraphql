@@ -9,10 +9,14 @@ const AddAuthor = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    addAuthor({
-      variables: { name: authorName, age: parseInt(authorAge) },
-      refetchQueries: [{ GET_AUTHORS }],
-    });
+    try {
+      addAuthor({
+        variables: { name: authorName, age: parseInt(authorAge) },
+        refetchQueries: [{ query: GET_AUTHORS }],
+      });
+    } catch (error) {
+      window.alert("Please fill out all info correctly", +error.message);
+    }
     setAuthorName("");
     setAuthorAge(0);
   };
