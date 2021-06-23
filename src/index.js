@@ -5,7 +5,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import App from "./App";
 
 const client = new ApolloClient({
-  uri: "http://touhidulshawan-books-rest-api.herokuapp.com/graphql",
+  uri: "https://touhidulshawan-books-rest-api.herokuapp.com/graphql",
   cache: new InMemoryCache(),
 });
 
