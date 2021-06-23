@@ -17,9 +17,6 @@
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "web-vitals": "^1.0.1"
   },
-  "engines": {
-    "node": "16.x"
-  },
   "scripts": {
     "start": "craco start",
     "build": "craco build",
